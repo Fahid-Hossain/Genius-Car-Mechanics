@@ -8,6 +8,8 @@ const useFirebase = () => {
     //useStates
     const [user,setUser]=useState({});
     const [error,setError]=useState("");
+    //useState for loading 
+    const [isLoading,setIsLoading]=useState(true);
 
     //firebase initialize configaration
     initializeFirebaseConfig();
@@ -19,6 +21,7 @@ const useFirebase = () => {
 
     //googleSignIn
     const googleSignIn = ()=>{
+      setIsLoading(true);
         signInWithPopup(auth, googleProvider)
         .then(result=>{
             const user = result.user;
@@ -27,18 +30,25 @@ const useFirebase = () => {
         .catch(error=>{
             setError(error.message)
         })
+        .finally(()=>{
+          setIsLoading(false);
+        })
     }
 
     //sign Out 
    
     const logOut = ()=>{
+      setIsLoading(true);
         signOut(auth).then(() => {
             // Sign-out successful.
             setUser({});
           }).catch((error) => {
             // An error happened.
             setError(error);
-          });
+          })
+          .finally(()=>{
+            setIsLoading(false);
+          })
     }
 
     // onAuthStateChange for state change observer 
@@ -52,6 +62,7 @@ const useFirebase = () => {
               // User is signed out
               // ...
             }
+            setIsLoading(false);
           });
 
           return ()=> unsubscribed;
@@ -61,7 +72,8 @@ const useFirebase = () => {
         user,
         googleSignIn,
         logOut,
-        error
+        error,
+        isLoading
     }
 
 }
