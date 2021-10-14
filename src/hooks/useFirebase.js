@@ -22,17 +22,17 @@ const useFirebase = () => {
     //googleSignIn
     const googleSignIn = ()=>{
       setIsLoading(true);
-        signInWithPopup(auth, googleProvider)
-        .then(result=>{
-            const user = result.user;
-            setUser(user);
-        })
-        .catch(error=>{
-            setError(error.message)
-        })
-        .finally(()=>{
-          setIsLoading(false);
-        })
+        return signInWithPopup(auth, googleProvider)
+        // .then(result=>{
+        //     const user = result.user;
+        //     setUser(user);
+        // })
+        // .catch(error=>{
+        //     setError(error.message)
+        // })
+        // .finally(()=>{
+        //   setIsLoading(false);
+        // })
     }
 
     //sign Out 

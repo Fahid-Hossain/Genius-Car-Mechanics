@@ -1,10 +1,22 @@
 import Button from '@restart/ui/esm/Button';
 import React from 'react';
 import { Form } from 'react-bootstrap';
+import { useHistory, useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
     const {googleSignIn}=useAuth();
+    const location = useLocation();
+    const history = useHistory();
+    const redirect_url = location.state?.from || "/home";
+
+    // redirect to page user wanna go after login
+    const googleSignInHandler = ()=>{
+        googleSignIn()
+        .then(result=>{
+            history.push(redirect_url);
+        })
+    }
     return (
         <div>
             <Form className="w-50 mx-auto mt-5 text-start">
@@ -30,7 +42,7 @@ const Login = () => {
             </Form>
 
             <h6>OR</h6>
-            <Button onClick={googleSignIn} className="btn btn-secondary" type="submit">
+            <Button onClick={googleSignInHandler} className="btn btn-secondary" type="submit">
                    signInWith google
                 </Button>
         </div>
