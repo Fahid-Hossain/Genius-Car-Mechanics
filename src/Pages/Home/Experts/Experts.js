@@ -31,8 +31,9 @@ const experts = [
 
 const Experts = () => {
     return (
-        <div className="container">
-            <h2 className="text-primary mt-5">Our Experts</h2>
+        <div id="experts" className="container">
+            <br /> <br />
+            <h2 className="text-primary mt-3">Our Experts</h2>
             <div className="row">
                 {
                     experts.map(expert => <Expert
